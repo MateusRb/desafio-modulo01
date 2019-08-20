@@ -8,11 +8,13 @@ const projects = [];
 
 let requisitionsCount = 0;
 
-server.use((req, res, next) => {
+function logRequests(req, res, next) {
   requisitionsCount++;
-  console.log(requisitionsCount);
+  console.log(`Número de requisições: ${requisitionsCount}`);
   next();
-});
+}
+
+server.use(logRequests);
 
 function projectExists(req, res, next) {
   const project = projects.find(project => project.id == req.params.id);
